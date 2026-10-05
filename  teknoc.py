@@ -35,15 +35,6 @@ def jobbra():
     jatekos.setx(jatekos.xcor() + 20)
 
 
-# Billentyűzet kezelése
-ablak.listen()
-
-ablak.onkeypress(fel, "Up")
-ablak.onkeypress(le, "Down")
-ablak.onkeypress(balra, "Left")
-ablak.onkeypress(jobbra, "Right")
-
-
 # A cél ellenőrzése
 def cel_ellenorzese():
     if jatekos.distance(cel) < 25:
@@ -58,8 +49,36 @@ def cel_ellenorzese():
     else:
         ablak.ontimer(cel_ellenorzese, 100)
 
+# Akadaly_ellenorzese
+def akadaly_ellenorzese():
+    if jatekos.distance(akadaly) < 60:
+        jatekos.goto(-250, -250)
+
+    ablak.ontimer(akadaly_ellenorzese, 50)        
+
+
+# Billentyűzet kezelése
+ablak.listen()
+
+ablak.onkeypress(fel, "Up")
+ablak.onkeypress(le, "Down")
+ablak.onkeypress(balra, "Left")
+ablak.onkeypress(jobbra, "Right")
+
+# Akadály létrehozása
+akadaly = turtle.Turtle()
+akadaly.shape("square")
+akadaly.color("black")
+akadaly.penup()
+akadaly.goto(0, 0)
+
+# Az akadály hosszúkásra alakítása
+akadaly.shapesize(stretch_wid=1, stretch_len=5)
+
+
 
 # Játék indítása
 cel_ellenorzese()
+akadaly_ellenorzese()
 
 ablak.mainloop()
